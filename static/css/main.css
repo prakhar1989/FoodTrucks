@@ -11,35 +11,35 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-    }
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
-    }
+    display: block;
+}
 body {
-	line-height: 1;
-    }
+    line-height: 1;
+}
 ol, ul {
-	list-style: none;
-    }
+    list-style: none;
+}
 blockquote, q {
-	quotes: none;
-    }
+    quotes: none;
+}
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
-    }
+    content: '';
+    content: none;
+}
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
-    }
+    border-collapse: collapse;
+    border-spacing: 0;
+}
 
 
 /* apply a natural box layout model to all elements */
@@ -57,35 +57,36 @@ h1, h2 {
 #header {
     position: absolute;
     top: 0px;
-    left: 0px;
+    right: 0px;
     width: 320px;
     height: 50px;	
-    background: rgba(0, 0, 0, 0.5);
+    background: #002A41;
+    border-left: 1px solid #aaa;
     color: white;
-	z-index: 2;
+    z-index: 2;
 }
 
 #header h1 {
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
 }
 
 #content {
-	border-right: 1px solid #aaa;
-	position: absolute;
-	top: 50px;
-	left: 0px;
-	bottom: 0px;
-	padding: 0;
-	width: 320px;
-	background: rgba(0, 0, 0, 0.6);
-	overflow: hidden;
-	z-index: 2;
+    border-left: 1px solid #aaa;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    bottom: 0px;
+    padding: 0;
+    width: 320px;
+    background: rgba(255, 255, 255,1);
+    overflow: hidden;
+    z-index: 2;
 }
 
 #content a.button.block {
-	display: block;
-	margin-bottom: 12px;
+    display: block;
+    margin-bottom: 12px;
 }
 
 /* MAP STYLES */
@@ -103,4 +104,3 @@ h1, h2 {
     width: 100%;
     z-index: 0;
 }
-

@@ -9,12 +9,12 @@ def convertData(data, msymbol="restaurant", msize="small"):
 	data_dict = []
 	for d in data:  # test for first 10
 		if d.get('longitude') and d.get("latitude"):
-			data_dict.append({ 
+			data_dict.append({
 				"type": "Feature",
 				"geometry": {
 					"type": "Point",
 					"coordinates": [float(d["longitude"]),
-									float(d["latitude"])]	
+									float(d["latitude"])]
 				},
 				"properties": {
 					"name": d.get("applicant", ""),
@@ -24,7 +24,7 @@ def convertData(data, msymbol="restaurant", msize="small"):
 					"address": d.get("address", "")
 				}
 			})
-	return data_dict 
+	return data_dict
 
 def writeToFile(data, filename="data.geojson"):
 	template = { "type": "FeatureCollections", "features": data }

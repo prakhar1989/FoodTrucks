@@ -2,49 +2,31 @@
 
 var map = L.mapbox.map('map', 'prakhar.map-xt3ojyos');
 
-var geoJson = [{
-    type: 'Feature',
-    geometry: {
-        type: 'Point',
-        coordinates: [37, -123]
-    },
-    properties: {
-        title: 'Marker One',
-        // http://mapbox.com/developers/simplestyle/
-        'marker-color': '#CC0033'
-    }
-},
-{
-    type: 'Feature',
-    geometry: {
-        type: 'Point',
-        coordinates: [37, -122]
-    },
-    properties: {
-        title: 'Marker Two',
-        'marker-color': '#0099ff'
-    }
-}];
+// adding custom popups
+map.markerLayer.on("layeradd", function(e){
+    var marker = e.layer,
+        feature = marker.feature;
+
+    // create custom content
+    var popupContent = '<h5>' + feature.properties.title + "</h5>" +
+                        '<p class="address">' + feature.properties.address + "</p>" +
+                        '<p class="fooditems">' + feature.properties.fooditems + "</p>";
+
+
+    marker.bindPopup(popupContent, {
+        closeButton: false,
+    });
+});
 
 
 map.markerLayer.setGeoJSON(geoJson);
 
-function resetColors() {
-    for (var i=0; i < geoJson.length; i++) {
-        geoJson[i].properties['marker-color'] = geoJson[i].properties['old-color'] ||
-                    geoJson[i].properties['marker-color'];
-    }
-    map.markerLayer.setGeoJSON(geoJson);
-}
 
-
-map.markerLayer.on('click', function(e){
-    resetColors();
-    e.layer.feature.properties['old-color'] = e.layer.feature.properties['marker-color'];
-    e.layer.feature.properties['marker-color'] = '#000';
-    map.markerLayer.setGeoJSON(geoJson);
+map.markerLayer.on("mouseover", function(e) {
+    e.layer.openPopup();
 });
-
-map.on('click', resetColors);
+map.markerLayer.on("mouseout", function(e){
+    e.layer.closePopup();
+});
 
 })();
