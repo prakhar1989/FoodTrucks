@@ -60,7 +60,7 @@ h1, h2 {
     right: 0px;
     width: 320px;
     height: 50px;	
-    background: #002A41;
+    background: #444;
     border-left: 1px solid #aaa;
     color: white;
     z-index: 2;
@@ -68,7 +68,9 @@ h1, h2 {
 
 #header h1 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 #content {
@@ -80,7 +82,7 @@ h1, h2 {
     padding: 0;
     width: 320px;
     background: rgba(255, 255, 255,1);
-    overflow: hidden;
+    overflow: auto;
     z-index: 2;
 }
 
@@ -103,4 +105,17 @@ h1, h2 {
     position: absolute;
     width: 100%;
     z-index: 0;
+}
+
+#trucksList li {
+    padding: 10px 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+}
+
+#trucksList li:hover {
+    cursor: pointer;
+    background: rgba(59,178,208,1);
+    color: white;
 }
