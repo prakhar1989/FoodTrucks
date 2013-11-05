@@ -20,6 +20,10 @@ window.getgeoJSONSample = function(geoJson, n) {
     }
 }
 
+window.formatFoodItems = function(fooditems){
+    return (_.sample(_.map(fooditems.split(':'), $.trim), 8)).join(", ")
+}
+
 App.Map = L.mapbox.map('map', 'prakhar.map-xt3ojyos');
 
 App.Models.Truck = Backbone.Model.extend({

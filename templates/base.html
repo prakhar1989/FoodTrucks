@@ -5893,12 +5893,12 @@
 
     <!-- TEMPLATES --!>
     <script id="truckTemplate" type="text/template">
-        <%= properties.title %>
-        <span class="address"><%= properties.address %>
-        <p>Serves: <%= properties.fooditems %></p>
+        <h1><%= properties.name %></h1>
+        <span class="address"><%= properties.address %></span>
+        <p>Serves: <%= formatFoodItems(properties.fooditems) %></p>
     </script>
     <script type="text/template" id="tooltipTemplate">
-        <h5><%= properties.title %></h5>
+        <h5><%= properties.name %></h5>
         <p class="address"><%= properties.address %></p>
         <p class="fooditems"><%= properties.fooditems %></p>
     </script>

@@ -47,7 +47,11 @@ table {
 .no-box-size { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
 
 /* typography */
-h1, h2 {
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+#header h1, h2 {
     padding: 20px 0;
     text-align: center;
 }
@@ -107,15 +111,29 @@ h1, h2 {
     z-index: 0;
 }
 
-#trucksList li {
+.truckCard {
     padding: 10px 20px;
     font-size: 12px;
-    text-transform: uppercase;
     border-bottom: 1px solid #eee;
 }
 
-#trucksList li:hover {
+.truckCard:hover {
     cursor: pointer;
     background: rgba(59,178,208,1);
     color: white;
+}
+
+.truckCard h1 {
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    font-size: 12px;
+}
+
+.truckCard .address {
+    font-style: italic;
+    color: #999;
+}
+
+.truckCard p {
+    padding-top: 8px;
 }
