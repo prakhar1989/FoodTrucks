@@ -47,9 +47,9 @@ App.Views.Truck = Backbone.View.extend({
         'click': "focusMap"
     },
     focusMap: function() {
-        //var coordinates = this.model.getCoordinates();
-        App.Map.setView(this.model.getLatLng(), 14);
-        this.model.showOnMap();
+        console.log("setting view to : "  + this.model.getLatLng());
+        App.Map.setView(this.model.getLatLng(), 12);
+        //this.model.showOnMap();
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
