@@ -5891,16 +5891,16 @@
 <body>
     {% block content %}{% endblock %}
 
-    <!-- TEMPLATES --!>
+    <!-- TEMPLATES -->
     <script id="truckTemplate" type="text/template">
         <h1><%= properties.name %></h1>
         <span class="address"><%= properties.address %></span>
         <p>Serves: <%= formatFoodItems(properties.fooditems) %></p>
     </script>
     <script type="text/template" id="tooltipTemplate">
-        <h5><%= properties.name %></h5>
-        <p class="address"><%= properties.address %></p>
-        <p class="fooditems"><%= properties.fooditems %></p>
+        <h1><%= properties.name %></h1>
+        <span class="address"><%= properties.address %></span>
+        <span class="fooditems"><%= properties.fooditems %></span>
     </script>
     <!-- END TEMPLATES -->
 
