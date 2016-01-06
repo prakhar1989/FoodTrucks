@@ -6,12 +6,17 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css' rel='stylesheet' />
-    <link href='/static/main.css' rel='stylesheet' />
+    <link href='/static/styles/main.css' rel='stylesheet' />
 </head>
 <body>
-
-<div id='map'></div>
-<div id="sidebar"></div>
-
+  <div id="heading">
+    <h1>SF Food Trucks</h1>
+    <p>Finger-licking street food in San Francisco. At your fingertips.</p>
+  </div>
+<div class="container">
+  <div id='map'></div>
+  <div id="sidebar"></div>
+</div>
+<script src='/static/build/main.js'></script>
 </body>
 </html>
