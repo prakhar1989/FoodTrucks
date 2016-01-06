@@ -1,13 +1,17 @@
-{% extends "base.html" %}
-{% block content %}
-<div id="header">
-    <h1>Food Trucks</h1>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css' rel='stylesheet' />
+    <link href='/static/main.css' rel='stylesheet' />
+</head>
+<body>
 
-<div id="content">
-</div>
+<div id='map'></div>
+<div id="sidebar"></div>
 
-<div id="map-wrapper" class="no-box-sizing">
-    <div id="map" class="map"></div>
-</div>
-{% endblock %}
+</body>
+</html>
