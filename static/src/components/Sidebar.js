@@ -146,6 +146,7 @@ var Sidebar = React.createClass({
         </div>
       );
     }
+
     var query = this.state.query;
     var resultsCount = this.state.results.hits || 0;
     var locationsCount = this.state.results.locations || 0;
@@ -153,6 +154,7 @@ var Sidebar = React.createClass({
     var renderedResults = results.map((r, i) => 
       <Vendor key={i} data={r} handleHover={this.handleHover} />
     );
+
     return (
       <div>
         <div id="search-area">

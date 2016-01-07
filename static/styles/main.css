@@ -1,5 +1,4 @@
 html, body {
-  height: 100%;
   padding: 0;
   color: #aaa;
   box-sizing: border-box;
@@ -7,6 +6,22 @@ html, body {
   margin: 0;
 }
 
+.github-corner:hover .octo-arm {
+    animation:octocat-wave 560ms ease-in-out
+}
+@keyframes octocat-wave{
+    0%,100% {transform:rotate(0)}
+    20%,60% {transform:rotate(-25deg)}
+    40%,80% {transform:rotate(10deg)}
+}
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation:none
+    }
+    .github-corner .octo-arm {
+        animation:octocat-wave 560ms ease-in-out
+    }
+}
 
 i { color: #3A3A3A; }
 
@@ -31,7 +46,7 @@ textarea, input, button {
 }
 
 .container {
-  height: 100vh;
+  height: 90vh;
   display: flex;
 }
 
@@ -45,10 +60,14 @@ textarea, input, button {
     overflow-y: scroll;
 }
 
+#sidebar div#results-area {
+    overflow-y: scroll;
+}
+
 div#heading {
     background: #FDED39;
     margin: 0;
-    padding: 8px;
+    height: 10vh;
     text-align: center;
 }
 
@@ -147,6 +166,7 @@ div#results-area ul li div.row div.content {
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
     border-top-color: black;
+    border-bottom-color: black;
 }
 .mapboxgl-popup-close-button {
     color: white;

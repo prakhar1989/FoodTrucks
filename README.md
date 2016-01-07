@@ -1,7 +1,7 @@
 SF Food Trucks
 ===
 
-> Finger-licking street food in San Francisco. Right at your fingertips.
+> San Francisco's finger-licking street food now at your fingertips.
 
 ![img](shot.png)
 

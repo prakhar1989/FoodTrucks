@@ -2,9 +2,9 @@ var React = require('react');
 
 var Vendor = React.createClass({
     formatFoodItems(items) {
-        var s = items.join(",").substr(0, 80);
+        var s = items.join(", ").substr(0, 80);
         if (s.length > 70) {
-            var indexOfLastSpace = s.split('').reverse().join('').indexOf(",");
+            var indexOfLastSpace = s.split('').reverse().join('').indexOf(",") + 1;
             return s.substr(0, 80 - indexOfLastSpace) + " & more...";
         } else {
             return s;
