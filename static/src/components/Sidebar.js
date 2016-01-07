@@ -5,9 +5,6 @@ var Sidebar = React.createClass({
   getInitialState() {
     return { results: [], query: "" }
   },
-  componentDidMount() {
-    this.pointsLayer = null;
-  },
   fetchResults() {
     var results = [],
         query = this.state.query;
@@ -23,11 +20,29 @@ var Sidebar = React.createClass({
         }
       }.bind(this));
   },
-  plotOnMap() {
+  generateGeoJSON(markers) {
+    return {
+          "type": "FeatureCollection",
+          "features": markers.map(function(p) {
+            return {
+              "type": "Feature",
+              "properties": {
+                "name": p.name,
+                "hours": p.hours,
+                "address": p.address,
+                "point-color": "253,237,57,1"
+              },
+              "geometry": {
+                "type": "Point",
+                "coordinates": [parseFloat(p.location.longitude), 
+                                parseFloat(p.location.latitude)]
+              }
+            }
+          })
+        }
+  },
+  plotOnMap(vendor) {
     var map = this.props.map;
-    if (this.pointsLayer != null) {
-      map.removeLayer(this.pointsLayer);
-    }
     var results = this.state.results;
     var markers = [].concat.apply([], results.trucks.map(t => 
                       t.branches.map(function(b) { 
@@ -39,49 +54,63 @@ var Sidebar = React.createClass({
                           address: b.address
                         }
                       })));
-    var geoJSON = {
-      "type": "FeatureCollection",
-      "features": markers.map(function(p) {
-        return {
-          "type": "Feature",
-          "properties": {
-            "name": p.name,
-            "hours": p.hours,
-            "address": p.address
-          },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [parseFloat(p.location.longitude), 
-                            parseFloat(p.location.latitude)]
-          }
-        }
-      })
-    };
+    var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
     
+    if (vendor) {
+      highlightMarkers = markers.filter(m => m.name.toLowerCase() === vendor.toLowerCase());
+      usualMarkers = markers.filter(m => m.name.toLowerCase() !== vendor.toLowerCase());
+    } else {
+      usualMarkers = markers;
+    }
+
+    usualgeoJSON = this.generateGeoJSON(usualMarkers);
+    if (highlightMarkers) {
+      highlightgeoJSON = this.generateGeoJSON(highlightMarkers);
+    }
+    
+    // clearing layers
     if (map.getLayer("trucks")) {
         map.removeLayer("trucks");
     }
     if (map.getSource("trucks")) {
         map.removeSource("trucks");
     }
-    console.log(geoJSON);
+    if (map.getLayer("trucks-highlight")) {
+        map.removeLayer("trucks-highlight");
+    }
+    if (map.getSource("trucks-highlight")) {
+        map.removeSource("trucks-highlight");
+    }
 
     map.addSource("trucks", {
       "type": "geojson",
-      "data": geoJSON
+      "data": usualgeoJSON
     }).addLayer({
         "id": "trucks",
         "type": "circle",
         "interactive": true,
         "source": "trucks",
-        "layout": {
-          "icon-image": "monument-15",
-        },
-        'paint': {
+        "paint": {
           'circle-radius': 8,
           'circle-color': 'rgba(253,237,57,1)'
         },
     });
+
+    if (highlightMarkers) {
+      map.addSource("trucks-highlight", {
+        "type": "geojson",
+        "data": highlightgeoJSON
+      }).addLayer({
+          "id": "trucks-highlight",
+          "type": "circle",
+          "interactive": true,
+          "source": "trucks-highlight",
+          "paint": {
+            'circle-radius': 8,
+            'circle-color': 'rgba(164,65,99,1)'
+          },
+      });
+    }
   },
   handleSearch(e) {
     e.preventDefault();
@@ -99,13 +128,16 @@ var Sidebar = React.createClass({
       return s;
     }
   },
+  handleHover(vendorName) {
+    this.plotOnMap(vendorName);
+  },
   render() {
     var query = this.state.query;
     var resultsCount = this.state.results.hits || 0;
     var locationsCount = this.state.results.locations || 0;
     var results = this.state.results.trucks || [];
     var renderedResults = results.map((r, i) => 
-      <li key={i}>
+      <li key={i} onMouseEnter={this.handleHover.bind(this, r.name)}>
         <p className="truck-name">{ r.name }</p>
         <div className="row">
           <div className="icons"> <i className="ion-android-pin"></i> </div>

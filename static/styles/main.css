@@ -17,16 +17,16 @@ h1 i {
     text-shadow: none; 
     font-size: 21px;
 }
-textarea, input { outline: none; }
+textarea, input, button { 
+    outline: none; 
+}
 
 .container {
   height: 100vh;
   display: flex;
 }
 
-#map {
-    flex: 3;
-}
+#map { flex: 3; }
 
 #sidebar {
     background: #1A1A1A;
