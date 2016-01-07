@@ -166,6 +166,8 @@ div#results-area ul li div.row div.content {
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
     border-top-color: black;
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
     border-bottom-color: black;
 }
 .mapboxgl-popup-close-button {
