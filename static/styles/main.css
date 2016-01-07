@@ -1,11 +1,22 @@
 html, body {
   height: 100%;
   padding: 0;
-  color: white;
+  color: #aaa;
   box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif;
   margin: 0;
 }
 
+
+i {
+    color: #3A3A3A;
+}
+
+h1 i { 
+    color: black; 
+    text-shadow: none; 
+    font-size: 21px;
+}
 textarea, input { outline: none; }
 
 .container {
@@ -24,7 +35,6 @@ textarea, input { outline: none; }
 }
 
 #map {
-    background: aliceblue;
     -ms-flex: 1;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -51,7 +61,7 @@ div#heading {
 }
 
 div#heading h1 {
-    font-size: 20px;
+    font-size: 25px;
     text-transform: uppercase;
     text-shadow: -2px 2px black;
     margin: 0;
@@ -82,4 +92,41 @@ div#search-area button {
     background: #FDED39;
     font-weight: 600;
     text-transform: uppercase;
+}
+
+div#results-area {
+    padding: 10px;
+}
+div#results-area h5 {
+    font-weight: 200;
+    font-style: italic;
+    margin: 0;
+    color: #ddd;
+}
+div#results-area h5 span.highlight {
+    color: #FDED39;
+    font-weight: 600;
+}
+div#results-area ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+div#results-area ul li {
+    border: 1px solid #444;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+div#results-area ul li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+div#results-area ul li p.truck-name {
+    color: #FDED39;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 16px;
+    margin-bottom: 5px;
 }

@@ -72,7 +72,7 @@ def search():
     locations = sum([len(r["branches"]) for r in results["trucks"]])
 
     return jsonify({
-        "results": results,
+        "trucks": results["trucks"],
         "hits": hits,
         "locations": locations,
         "status": "success"

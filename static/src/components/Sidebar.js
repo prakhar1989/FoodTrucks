@@ -26,16 +26,29 @@ var Sidebar = React.createClass({
   onChange(e) {
     this.setState({query: e.target.value});
   },
+  formatFoodItems(items) {
+    var s = items.join(",").substr(0, 80);
+    if (s.length > 70) {
+      var indexOfLastSpace = s.split('').reverse().join('').indexOf(",");
+      return s.substr(0, 80 - indexOfLastSpace) + " & more...";
+    } else {
+      return s;
+    }
+  },
   render() {
-    var resultsCount = this.state.results.total || 0;
     var query = this.state.query;
-    var results = this.state.results.hits || [];
-    var renderedResults = results.map((r, i) => {
-      return <li key={i}>
-          <p>{ r._source.applicant }</p>
-          <span> Located at: { r._source.address }</span>
-        </li>
-    });
+    var resultsCount = this.state.results.hits || 0;
+    var locationsCount = this.state.results.locations || 0;
+    var results = this.state.results.trucks || [];
+    var renderedResults = results.map((r, i) => 
+      <li key={i}>
+        <p className="truck-name">{ r.name }</p>
+        <p><i className="ion-android-pin"></i> &nbsp; {r.branches.length} locations</p>
+        <p><i className="ion-fork"></i> <i className="ion-spoon"></i> &nbsp; 
+          Serves {this.formatFoodItems(r.fooditems)}
+        </p>
+      </li>
+    );
     return (
       <div>
         <div id="search-area">
@@ -47,10 +60,9 @@ var Sidebar = React.createClass({
         </div>
         { resultsCount > 0 ?
           <div id="results-area">
-            <h5>Showing { resultsCount } results</h5>
-            <ul>
-              { renderedResults }
-            </ul>
+            <h5>Found <span className="highlight">{ resultsCount }</span> vendors
+              in <span className='highlight'>{ locationsCount}</span> different locations</h5>
+            <ul> { renderedResults } </ul>
           </div>
         : null}
       </div>
