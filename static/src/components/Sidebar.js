@@ -5,6 +5,9 @@ var Sidebar = React.createClass({
   getInitialState() {
     return { results: [], query: "" }
   },
+  componentDidMount() {
+    this.pointsLayer = null;
+  },
   fetchResults() {
     var results = [],
         query = this.state.query;
@@ -16,8 +19,57 @@ var Sidebar = React.createClass({
         }
         else {
           this.setState({ results: res.body });
+          this.plotOnMap();
         }
       }.bind(this));
+  },
+  plotOnMap() {
+    var map = this.props.map;
+    if (this.pointsLayer != null) {
+      map.removeLayer(this.pointsLayer);
+    }
+    var results = this.state.results;
+    var markers = [].concat.apply([], results.trucks.map(t => 
+                      t.branches.map(b => b.location)));
+    var geoJSON = {
+      "type": "FeatureCollection",
+      "features": markers.map(function(p) {
+        return {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [parseFloat(p.longitude), 
+                            parseFloat(p.latitude)]
+          }
+        }
+      })
+    };
+    
+    if (map.getLayer("trucks")) {
+        map.removeLayer("trucks");
+    }
+    if (map.getSource("trucks")) {
+        map.removeSource("trucks");
+    }
+
+    map.addSource("trucks", {
+      "type": "geojson",
+      "data": geoJSON
+    });
+    
+    map.addLayer({
+        "id": "trucks",
+        "type": "circle",
+        "interactive": true,
+        "source": "trucks",
+        "layout": {
+          "icon-image": "monument-15",
+        },
+        'paint': {
+          'circle-radius': 8,
+          'circle-color': 'rgba(253,237,57,1)'
+        },
+    });
   },
   handleSearch(e) {
     e.preventDefault();
