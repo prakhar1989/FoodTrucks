@@ -1,5 +1,7 @@
 var React = require('react');
 var request = require('superagent');
+var Intro = require('./Intro');
+var Vendor = require('./Vendor');
 
 var Sidebar = React.createClass({
   getInitialState() {
@@ -10,8 +12,7 @@ var Sidebar = React.createClass({
     }
   },
   fetchResults() {
-    var results = [],
-        query = this.state.query;
+    var results = [], query = this.state.query;
     request
       .get('/search?q=' +  query)
       .end(function(err, res) {
@@ -120,23 +121,15 @@ var Sidebar = React.createClass({
     }
   },
   handleSearch(e) {
-    e.preventDefault();
-    this.fetchResults();
+      e.preventDefault();
+      this.fetchResults();
   },
   onChange(e) {
-    this.setState({query: e.target.value});
-  },
-  formatFoodItems(items) {
-    var s = items.join(",").substr(0, 80);
-    if (s.length > 70) {
-      var indexOfLastSpace = s.split('').reverse().join('').indexOf(",");
-      return s.substr(0, 80 - indexOfLastSpace) + " & more...";
-    } else {
-      return s;
-    }
+      this.setState({query: e.target.value});
   },
   handleHover(vendorName) {
-    this.plotOnMap(vendorName);
+      console.log("here");
+      this.plotOnMap(vendorName);
   },
   render() {
     if (this.state.firstLoad) {
@@ -149,15 +142,7 @@ var Sidebar = React.createClass({
               <button>Search!</button>
             </form>
           </div>
-          <div className="intro">
-            <h3>About</h3>
-            <p>This is a fun application built to accompany the <a href="http://prakhar.me/docker-curriculum">docker curriculum</a> which is a comprehensive tutorial on getting started with Docker 
-            targetted especially at beginners.</p>
-            <p>The app is built with Flask on the backend and Elasticsearch is the search engine powering the searches</p>
-            <p>The frontend is built with React and the beautiful maps are courtesy of Mapbox.</p>
-            <p>If you find the design of the website a bit ostentatious, blame <a href="http://genius.com/Justin-bieber-baby-lyrics">Genius</a> for giving me the idea of using this color scheme.</p>
-            <p>Lastly, the data for the food trucks is made available in public domain by <a href="https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat">SF Data</a></p>
-          </div>
+          <Intro />
         </div>
       );
     }
@@ -166,17 +151,7 @@ var Sidebar = React.createClass({
     var locationsCount = this.state.results.locations || 0;
     var results = this.state.results.trucks || [];
     var renderedResults = results.map((r, i) => 
-      <li key={i} onMouseEnter={this.handleHover.bind(this, r.name)}>
-        <p className="truck-name">{ r.name }</p>
-        <div className="row">
-          <div className="icons"> <i className="ion-android-pin"></i> </div>
-          <div className="content"> {r.branches.length} locations </div>
-        </div>
-        <div className="row">
-          <div className="icons"> <i className="ion-fork"></i> <i className="ion-spoon"></i></div>
-          <div className="content"> Serves {this.formatFoodItems(r.fooditems)}</div>
-        </div>
-      </li>
+      <Vendor key={i} data={r} handleHover={this.handleHover} />
     );
     return (
       <div>

@@ -22,7 +22,7 @@ def test_es():
 
 def formatFooditems(string):
     items = [x.strip().lower() for x in string.split(":")]
-    return items
+    return items[1:] if items[0].find("cold truck") > -1 else items
 
 @app.route('/search')
 def search():
@@ -66,7 +66,8 @@ def search():
         results["trucks"].append({
             "name": v,
             "fooditems": formatFooditems(fooditems[v]),
-            "branches": temp[v]
+            "branches": temp[v],
+            "drinks": fooditems[v].find("COLD TRUCK") > -1
         })
     hits = len(results["trucks"])
     locations = sum([len(r["branches"]) for r in results["trucks"]])
