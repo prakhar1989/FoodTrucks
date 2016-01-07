@@ -3,7 +3,11 @@ var request = require('superagent');
 
 var Sidebar = React.createClass({
   getInitialState() {
-    return { results: [], query: "" }
+    return { 
+      results: [], 
+      query: "", 
+      firstLoad: true
+    }
   },
   fetchResults() {
     var results = [],
@@ -15,31 +19,34 @@ var Sidebar = React.createClass({
           alert("error in fetching response");
         }
         else {
-          this.setState({ results: res.body });
+          this.setState({ 
+            results: res.body,
+            firstLoad: false
+          });
           this.plotOnMap();
         }
       }.bind(this));
   },
   generateGeoJSON(markers) {
     return {
-          "type": "FeatureCollection",
-          "features": markers.map(function(p) {
-            return {
-              "type": "Feature",
-              "properties": {
-                "name": p.name,
-                "hours": p.hours,
-                "address": p.address,
-                "point-color": "253,237,57,1"
-              },
-              "geometry": {
-                "type": "Point",
-                "coordinates": [parseFloat(p.location.longitude), 
-                                parseFloat(p.location.latitude)]
-              }
-            }
-          })
+      "type": "FeatureCollection",
+      "features": markers.map(function(p) {
+        return {
+          "type": "Feature",
+          "properties": {
+            "name": p.name,
+            "hours": p.hours,
+            "address": p.address,
+            "point-color": "253,237,57,1"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [parseFloat(p.location.longitude), 
+                            parseFloat(p.location.latitude)]
+          }
         }
+      })
+    }
   },
   plotOnMap(vendor) {
     var map = this.props.map;
@@ -132,6 +139,28 @@ var Sidebar = React.createClass({
     this.plotOnMap(vendorName);
   },
   render() {
+    if (this.state.firstLoad) {
+      return ( 
+        <div>
+          <div id="search-area">
+            <form onSubmit={this.handleSearch}>
+              <input type="text" value={query} onChange={this.onChange}
+                      placeholder="Burgers, Tacos or Wraps?"/>
+              <button>Search!</button>
+            </form>
+          </div>
+          <div className="intro">
+            <h3>About</h3>
+            <p>This is a fun application built to accompany the <a href="http://prakhar.me/docker-curriculum">docker curriculum</a> which is a comprehensive tutorial on getting started with Docker 
+            targetted especially at beginners.</p>
+            <p>The app is built with Flask on the backend and Elasticsearch is the search engine powering the searches</p>
+            <p>The frontend is built with React and the beautiful maps are courtesy of Mapbox.</p>
+            <p>If you find the design of the website a bit ostentatious, blame <a href="http://genius.com/Justin-bieber-baby-lyrics">Genius</a> for giving me the idea of using this color scheme.</p>
+            <p>Lastly, the data for the food trucks is made available in public domain by <a href="https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat">SF Data</a></p>
+          </div>
+        </div>
+      );
+    }
     var query = this.state.query;
     var resultsCount = this.state.results.hits || 0;
     var locationsCount = this.state.results.locations || 0;
