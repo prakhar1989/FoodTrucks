@@ -20,37 +20,20 @@ h1 i {
 textarea, input { outline: none; }
 
 .container {
-  height: 100%;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-box;
-  display: box;
-  
-  -ms-flex-direction: row;
-  -webkit-box-orient: horizontal;
-  -moz-box-orient: horizontal;
-  -ms-box-orient: horizontal;
-  box-orient: horizontal;
+  height: 100vh;
+  display: flex;
 }
 
 #map {
-    -ms-flex: 1;
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -ms-box-flex: 1;
-    box-flex: 1;  
+    flex: 3;
 }
 
 #sidebar {
     background: #1A1A1A;
     border-left: 1px solid #444444;
     width: 320px;
-    -ms-flex: 0 100px;
-    -webkit-box-flex:  0;
-    -moz-box-flex:  0;
-    -ms-box-flex:  0;
-    box-flex:  0;  
+    flex: 1;
+    overflow-y: scroll;
 }
 
 div#heading {
@@ -86,7 +69,7 @@ div#search-area button {
     border: none;
 }
 div#search-area input {
-    width: 215px;
+    width: 195px;
 }
 div#search-area button {
     background: #FDED39;
@@ -118,6 +101,11 @@ div#results-area ul li {
     margin-bottom: 10px;
     cursor: pointer;
 }
+
+div#results-area ul li:hover {
+    border: 1px solid #FDED39;
+}
+
 div#results-area ul li p {
     margin: 0;
     font-size: 14px;
@@ -129,4 +117,16 @@ div#results-area ul li p.truck-name {
     margin: 0;
     font-size: 16px;
     margin-bottom: 5px;
+}
+div#results-area ul li div.row {
+    display: flex;
+    flex-direction: row;
+}
+div#results-area ul li div.row div.icons {
+    order: 1;
+}
+div#results-area ul li div.row div.content {
+    order: 2;
+    width: 230px;
+    margin-left: 10px;
 }

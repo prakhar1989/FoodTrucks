@@ -43,10 +43,14 @@ var Sidebar = React.createClass({
     var renderedResults = results.map((r, i) => 
       <li key={i}>
         <p className="truck-name">{ r.name }</p>
-        <p><i className="ion-android-pin"></i> &nbsp; {r.branches.length} locations</p>
-        <p><i className="ion-fork"></i> <i className="ion-spoon"></i> &nbsp; 
-          Serves {this.formatFoodItems(r.fooditems)}
-        </p>
+        <div className="row">
+          <div className="icons"> <i className="ion-android-pin"></i> </div>
+          <div className="content"> {r.branches.length} locations </div>
+        </div>
+        <div className="row">
+          <div className="icons"> <i className="ion-fork"></i> <i className="ion-spoon"></i></div>
+          <div className="content"> Serves {this.formatFoodItems(r.fooditems)}</div>
+        </div>
       </li>
     );
     return (
