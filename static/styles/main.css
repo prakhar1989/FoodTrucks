@@ -2,8 +2,11 @@ html, body {
   height: 100%;
   padding: 0;
   color: white;
+  box-sizing: border-box;
   margin: 0;
 }
+
+textarea, input { outline: none; }
 
 .container {
   height: 100%;
@@ -32,7 +35,7 @@ html, body {
 #sidebar {
     background: #1A1A1A;
     border-left: 1px solid #444444;
-    width: 300px;
+    width: 320px;
     -ms-flex: 0 100px;
     -webkit-box-flex:  0;
     -moz-box-flex:  0;
@@ -60,4 +63,23 @@ div#heading p {
     font-style: italic;
     font-size: 12px;
     margin: 0;
+}
+
+div#search-area {
+    padding: 10px;
+    border-bottom: 1px solid #444444;
+}
+
+div#search-area input, 
+div#search-area button {
+    padding: 10px 8px;
+    border: none;
+}
+div#search-area input {
+    width: 215px;
+}
+div#search-area button {
+    background: #FDED39;
+    font-weight: 600;
+    text-transform: uppercase;
 }
