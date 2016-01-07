@@ -30,16 +30,29 @@ var Sidebar = React.createClass({
     }
     var results = this.state.results;
     var markers = [].concat.apply([], results.trucks.map(t => 
-                      t.branches.map(b => b.location)));
+                      t.branches.map(function(b) { 
+                        return {
+                          location: b.location,
+                          name: t.name,
+                          schedule: b.schedule,
+                          hours: b.hours,
+                          address: b.address
+                        }
+                      })));
     var geoJSON = {
       "type": "FeatureCollection",
       "features": markers.map(function(p) {
         return {
           "type": "Feature",
+          "properties": {
+            "name": p.name,
+            "hours": p.hours,
+            "address": p.address
+          },
           "geometry": {
             "type": "Point",
-            "coordinates": [parseFloat(p.longitude), 
-                            parseFloat(p.latitude)]
+            "coordinates": [parseFloat(p.location.longitude), 
+                            parseFloat(p.location.latitude)]
           }
         }
       })
@@ -51,13 +64,12 @@ var Sidebar = React.createClass({
     if (map.getSource("trucks")) {
         map.removeSource("trucks");
     }
+    console.log(geoJSON);
 
     map.addSource("trucks", {
       "type": "geojson",
       "data": geoJSON
-    });
-    
-    map.addLayer({
+    }).addLayer({
         "id": "trucks",
         "type": "circle",
         "interactive": true,
