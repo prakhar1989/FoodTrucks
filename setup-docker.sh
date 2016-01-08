@@ -4,7 +4,7 @@
 docker build -t prakhar1989/flask-app .
 
 # create the network
-docker create network es
+docker network create es
 
 # start the ES container
 docker run -d --net es -p 9200:9200 -h es-primary --name es-primary elasticsearch

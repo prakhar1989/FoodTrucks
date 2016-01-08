@@ -1,8 +1,11 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, exceptions
+import time
 from flask import Flask, jsonify, request, render_template
+import sys
 import requests
 
-es = Elasticsearch()
+es = Elasticsearch(host='es')
+
 app = Flask(__name__)
 
 def load_data_in_es():
@@ -15,9 +18,23 @@ def load_data_in_es():
         res = es.index(index="sfdata", doc_type="truck", id=id, body=truck)
     print "Total trucks loaded: ", len(data)
 
+def safe_check_index(index, retry=3):
+    """ connect to ES with retry """
+    if not retry:
+        print "Out of retries. Bailing out..."
+        sys.exit(1)
+    try:
+        status = es.indices.exists(index)
+        return status
+    except exceptions.ConnectionError as e:
+        print "Unable to connect to ES. Retying in 5 secs..."
+        time.sleep(5)
+        safe_check_index(index, retry-1)
+
+
 def check_and_load_index():
     """ checks if index exits and loads the data accordingly """
-    if not es.indices.exists('sfdata'):
+    if not safe_check_index('sfdata'):
         print "Index not found..."
         load_data_in_es()
 
