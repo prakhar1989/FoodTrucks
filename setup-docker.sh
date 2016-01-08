@@ -4,14 +4,10 @@
 docker build -t prakhar1989/flask-app .
 
 # create the network
-docker network create es
+docker network create foodtrucks
 
 # start the ES container
-docker run -d --net es -p 9200:9200 -h es-primary --name es-primary elasticsearch
-
-# index the documents
-python load_data.py -i "0.0.0.0" -p "9200"
+docker run -d --net foodtrucks -p 9200:9200 -p 9300:9300 --name es elasticsearch
 
 # start the flask app container
-docker run -d --net es --name flask_app -p 5000:5000 prakhar1989/flask-es
-
+docker run -d --net foodtrucks -p 5000:5000 --name flask-app prakhar1989/flask-app
