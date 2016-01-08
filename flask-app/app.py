@@ -1,9 +1,29 @@
 from elasticsearch import Elasticsearch
 from flask import Flask, jsonify, request, render_template
-es = Elasticsearch()
+import requests
 
+es = Elasticsearch()
 app = Flask(__name__)
 
+def load_data_in_es():
+    """ creates an index in elasticsearch """
+    url = "http://data.sfgov.org/resource/rqzj-sfat.json"
+    r = requests.get(url)
+    data = r.json()
+    print "Loading data in elasticsearch ..."
+    for id, truck in enumerate(data):
+        res = es.index(index="sfdata", doc_type="truck", id=id, body=truck)
+    print "Total trucks loaded: ", len(data)
+
+def check_and_load_index():
+    """ checks if index exits and loads the data accordingly """
+    if not es.indices.exists('sfdata'):
+        print "Index not found..."
+        load_data_in_es()
+
+###########
+### APP ###
+###########
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -20,7 +40,7 @@ def test_es():
         resp["msg"] = "Unable to reach ES"
     return jsonify(resp)
 
-def formatFooditems(string):
+def format_fooditems(string):
     items = [x.strip().lower() for x in string.split(":")]
     return items[1:] if items[0].find("cold truck") > -1 else items
 
@@ -37,7 +57,7 @@ def search():
                 index="sfdata",
                 body={
                     "query": {"match": {"fooditems": key}},
-                    "size": 750 # TODO: shouldn't be hardcoded
+                    "size": 750 # max document size
               })
     except Exception as e:
         return jsonify({
@@ -65,7 +85,7 @@ def search():
     for v in temp:
         results["trucks"].append({
             "name": v,
-            "fooditems": formatFooditems(fooditems[v]),
+            "fooditems": format_fooditems(fooditems[v]),
             "branches": temp[v],
             "drinks": fooditems[v].find("COLD TRUCK") > -1
         })
@@ -80,5 +100,6 @@ def search():
     })
 
 if __name__ == "__main__":
+    check_and_load_index()
     #app.run(debug=True) # for dev
     app.run(host='0.0.0.0', port=5000) # for prod
