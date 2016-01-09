@@ -1,0 +1,12 @@
+es:
+  image: elasticsearch
+  cpu_shares: 100
+  mem_limit: 524288000
+web:
+  image: prakhar1989/foodtrucks-web
+  cpu_shares: 100
+  mem_limit: 524288000
+  ports:
+    - "80:5000"
+  links:
+    - es

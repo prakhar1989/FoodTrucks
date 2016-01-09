@@ -1,7 +1,7 @@
 es:
   image: elasticsearch
 web:
-  build: .
+  image: prakhar1989/foodtrucks-web
   command: python app.py
   ports:
     - "5000:5000"

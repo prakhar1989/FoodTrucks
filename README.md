@@ -9,9 +9,9 @@ This is a fun application built to accompany the [docker curriculum](http://prak
 
 If you find the design of the website a bit ostentatious, blame [Genius](http://genius.com) for giving me the idea of using this color scheme.  Lastly, the data for the food trucks is made available in public domain by [SF Data](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat).
 
-### Running
+#### Docker
 
-There are two different ways of getting the app up and running. To learn more how these two differ, checkout the [docker curriculum](http://prakhar.me/docker-curriculum).
+There are two different ways of getting the app up and running with Docker. To learn more how these two differ, checkout the [docker curriculum](http://prakhar.me/docker-curriculum).
 
 ##### Docker Network
 ```
