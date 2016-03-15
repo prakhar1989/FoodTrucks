@@ -27,7 +27,7 @@ def safe_check_index(index, retry=3):
         status = es.indices.exists(index)
         return status
     except exceptions.ConnectionError as e:
-        print "Unable to connect to ES. Retying in 5 secs..."
+        print "Unable to connect to ES. Retrying in 5 secs..."
         time.sleep(5)
         safe_check_index(index, retry-1)
 
