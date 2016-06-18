@@ -1,11 +1,21 @@
-es:
-  image: elasticsearch
-web:
-  image: prakhar1989/foodtrucks-web
-  command: python app.py
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/code
-  links:
-    - es
+version: "2"
+services:
+  es:
+    image: elasticsearch
+    networks:
+      - back-tier
+  web:
+    image: prakhar1989/foodtrucks-web
+    command: python app.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    networks:
+      - back-tier
+      - front-tier
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
