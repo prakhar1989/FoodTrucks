@@ -1,7 +1,7 @@
 version: "2"
 services:
   es:
-    image: elasticsearch
+    image: elasticsearch:2.3
   web:
     image: prakhar1989/foodtrucks-web
     command: python app.py
