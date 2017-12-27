@@ -1,5 +1,5 @@
 es:
-  image: elasticsearch
+  image: elasticsearch:2.3
   cpu_shares: 100
   mem_limit: 262144000
 web:
