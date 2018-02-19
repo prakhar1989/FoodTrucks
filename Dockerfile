@@ -1,5 +1,5 @@
 # start from base
-FROM ubuntu:14.04
+FROM ubuntu:latest
 MAINTAINER Prakhar Srivastav <prakhar@prakhar.me>
 
 # install system-wide deps for python and node
