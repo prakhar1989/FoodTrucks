@@ -1,4 +1,5 @@
 from elasticsearch import Elasticsearch, exceptions
+import os
 import time
 from flask import Flask, jsonify, request, render_template
 import sys
@@ -117,6 +118,6 @@ def search():
     })
 
 if __name__ == "__main__":
+    ENVIRONMENT_DEBUG = os.environ.get("DEBUG", False)
     check_and_load_index()
-    #app.run(debug=True) # for dev
-    app.run(host='0.0.0.0', port=5000) # for prod
+    app.run(host='0.0.0.0', port=5000, debug=ENVIRONMENT_DEBUG)

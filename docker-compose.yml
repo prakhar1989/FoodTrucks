@@ -12,10 +12,12 @@ services:
   web:
     image: prakhar1989/foodtrucks-web
     command: python app.py
+    depends_on:
+      - es
     ports:
       - "5000:5000"
     volumes:
-      - .:/code
+      - ./flask-app:/opt/flask-app
 volumes:
     esdata1:
       driver: local
