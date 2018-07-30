@@ -1,7 +1,12 @@
-version: "2"
+version: "3"
 services:
   es:
-    image: elasticsearch:2.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    container_name: es
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
   web:
     image: prakhar1989/foodtrucks-web
     command: python app.py
