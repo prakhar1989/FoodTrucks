@@ -32,6 +32,9 @@ def safe_check_index(index, retry=3):
         time.sleep(5)
         safe_check_index(index, retry-1)
 
+def format_fooditems(string):
+    items = [x.strip().lower() for x in string.split(":")]
+    return items[1:] if items[0].find("cold truck") > -1 else items
 
 def check_and_load_index():
     """ checks if index exits and loads the data accordingly """
@@ -57,10 +60,6 @@ def test_es():
         resp["status"] = "failure"
         resp["msg"] = "Unable to reach ES"
     return jsonify(resp)
-
-def format_fooditems(string):
-    items = [x.strip().lower() for x in string.split(":")]
-    return items[1:] if items[0].find("cold truck") > -1 else items
 
 @app.route('/search')
 def search():
