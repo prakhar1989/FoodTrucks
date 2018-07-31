@@ -10,8 +10,10 @@ services:
     volumes:
       - esdata1:/usr/share/elasticsearch/data
   web:
-    image: prakhar1989/foodtrucks-web
+    build: .
     command: python app.py
+    environment:
+      - DEBUG=True
     depends_on:
       - es
     ports:
