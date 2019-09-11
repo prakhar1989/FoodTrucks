@@ -4,9 +4,12 @@ MAINTAINER Prakhar Srivastav <prakhar@prakhar.me>
 
 # install system-wide deps for python and node
 RUN apt-get -yqq update
-RUN apt-get -yqq install python-pip python-dev curl gnupg
+RUN apt-get -yqq install python-pip python-dev curl gnupg dnsmasq
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -yq nodejs
+RUN > /etc/dnsmasq.conf
+RUN echo "nameserver 8.8.8.8" >> /etc/dnsmasq.conf
+RUN echo "nameserver 8.8.4.4" >> /etc/dnsmasq.conf
 
 # copy our application code
 ADD flask-app /opt/flask-app
