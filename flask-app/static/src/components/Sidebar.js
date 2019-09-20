@@ -42,8 +42,7 @@ var Sidebar = React.createClass({
           },
           "geometry": {
             "type": "Point",
-            "coordinates": [parseFloat(p.location.longitude), 
-                            parseFloat(p.location.latitude)]
+            "coordinates": p.location.coordinates
           }
         }
       })
@@ -128,7 +127,6 @@ var Sidebar = React.createClass({
       this.setState({query: e.target.value});
   },
   handleHover(vendorName) {
-      console.log("here");
       this.plotOnMap(vendorName);
   },
   render() {
