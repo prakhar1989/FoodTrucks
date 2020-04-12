@@ -19,10 +19,10 @@ ReactDOM.render(
 
 function formatHTMLforMarker(props) {
     var { name, hours, address } = props;
-    var html = "<div class=\"marker-title\">" + name + "</div>" + 
-        "<h4>Operating Hours</h4>" + 
+    var html = "<div class=\"marker-title\">" + name + "</div>" +
+        "<h4>Operating Hours</h4>" +
         "<span>" + hours + "</span>" +
-        "<h4>Address</h4>" + 
+        "<h4>Address</h4>" +
         "<span>"+ address + "</span>";
     return html;
 };
