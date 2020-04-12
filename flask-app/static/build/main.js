@@ -11280,6 +11280,8 @@
 	    _this.state = {
 	      isExpanded: false
 	    };
+	
+	    _this.toggleExpand = _this.toggleExpand.bind(_this);
 	    return _this;
 	  }
 	
@@ -11289,13 +11291,12 @@
 	      if (this.state.isExpanded) {
 	        return items.join(", ");
 	      }
-	      var s = items.join(", ").substr(0, 80);
-	      if (s.length > 70) {
-	        var indexOfLastSpace = s.split("").reverse().join("").indexOf(",") + 1;
-	        return s.substr(0, 80 - indexOfLastSpace) + " & more...";
-	      } else {
-	        return s;
+	      var summary = items.join(", ").substr(0, 80);
+	      if (summary.length > 70) {
+	        var indexOfLastSpace = summary.split("").reverse().join("").indexOf(",") + 1;
+	        return summary.substr(0, 80 - indexOfLastSpace) + " & more...";
 	      }
+	      return summary;
 	    }
 	  }, {
 	    key: "toggleExpand",

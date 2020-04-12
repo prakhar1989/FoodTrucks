@@ -1,24 +1,26 @@
 import React from "react";
 
-class Vendor extends React.Component {
+export default class Vendor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isExpanded: false,
     };
+
+    this.toggleExpand = this.toggleExpand.bind(this);
   }
 
   formatFoodItems(items) {
     if (this.state.isExpanded) {
       return items.join(", ");
     }
-    var s = items.join(", ").substr(0, 80);
-    if (s.length > 70) {
-      var indexOfLastSpace = s.split("").reverse().join("").indexOf(",") + 1;
-      return s.substr(0, 80 - indexOfLastSpace) + " & more...";
-    } else {
-      return s;
+    const summary = items.join(", ").substr(0, 80);
+    if (summary.length > 70) {
+      const indexOfLastSpace =
+        summary.split("").reverse().join("").indexOf(",") + 1;
+      return summary.substr(0, 80 - indexOfLastSpace) + " & more...";
     }
+    return summary;
   }
 
   toggleExpand() {
@@ -64,5 +66,3 @@ class Vendor extends React.Component {
     );
   }
 }
-
-export default Vendor;

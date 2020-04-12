@@ -1,48 +1,64 @@
-html, body {
+html,
+body {
   padding: 0;
   color: #aaa;
   box-sizing: border-box;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: "Titillium Web", sans-serif;
   margin: 0;
 }
 
 .github-corner:hover .octo-arm {
-    animation:octocat-wave 560ms ease-in-out
+  animation: octocat-wave 560ms ease-in-out;
 }
-@keyframes octocat-wave{
-    0%,100% {transform:rotate(0)}
-    20%,60% {transform:rotate(-25deg)}
-    40%,80% {transform:rotate(10deg)}
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
 }
-@media (max-width:500px) {
-    .github-corner:hover .octo-arm {
-        animation:none
-    }
-    .github-corner .octo-arm {
-        animation:octocat-wave 560ms ease-in-out
-    }
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
 }
 
-i { color: #3A3A3A; }
+i {
+  color: #3a3a3a;
+}
 
-div.intro a, 
-div.intro a:visited { color: #FDED39; }
+div.intro a,
+div.intro a:visited {
+  color: #fded39;
+}
 div.intro {
-    padding: 10px;
+  padding: 10px;
 }
 
 div.intro h3 {
-    color: #FDED39;
-    text-transform: uppercase;
+  color: #fded39;
+  text-transform: uppercase;
 }
 
-h1 i { 
-    color: black; 
-    text-shadow: none; 
-    font-size: 21px;
+h1 i {
+  color: black;
+  text-shadow: none;
+  font-size: 21px;
 }
-textarea, input, button { 
-    outline: none; 
+textarea,
+input,
+button {
+  outline: none;
 }
 
 .container {
@@ -50,135 +66,137 @@ textarea, input, button {
   display: flex;
 }
 
-#map { flex: 3; }
+#map {
+  flex: 3;
+}
 
 #sidebar {
-    background: #1A1A1A;
-    border-left: 1px solid #444444;
-    width: 320px;
-    flex: 1;
-    overflow-y: scroll;
+  background: #1a1a1a;
+  border-left: 1px solid #444444;
+  width: 320px;
+  flex: 1;
+  overflow-y: scroll;
 }
 
 #sidebar div#results-area {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 div#heading {
-    background: #FDED39;
-    margin: 0;
-    height: 10vh;
-    text-align: center;
+  background: #fded39;
+  margin: 0;
+  height: 10vh;
+  text-align: center;
 }
 
 div#heading h1 {
-    font-size: 25px;
-    text-transform: uppercase;
-    text-shadow: -2px 2px black;
-    margin: 0;
-    color: #FDED39;
+  font-size: 25px;
+  text-transform: uppercase;
+  text-shadow: -2px 2px black;
+  margin: 0;
+  color: #fded39;
 }
 
 div#heading p {
-    color: black;
-    font-style: italic;
-    font-size: 12px;
-    margin: 0;
+  color: black;
+  font-style: italic;
+  font-size: 12px;
+  margin: 0;
 }
 
 div#search-area {
-    padding: 10px;
-    border-bottom: 1px solid #444444;
+  padding: 10px;
+  border-bottom: 1px solid #444444;
 }
 
-div#search-area input, 
+div#search-area input,
 div#search-area button {
-    padding: 10px 8px;
-    border: none;
+  padding: 10px 8px;
+  border: none;
 }
 div#search-area input {
-    width: 195px;
+  width: 195px;
 }
 div#search-area button {
-    background: #FDED39;
-    font-weight: 600;
-    text-transform: uppercase;
+  background: #fded39;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 div#results-area {
-    padding: 10px;
+  padding: 10px;
 }
 div#results-area h5 {
-    font-weight: 200;
-    font-style: italic;
-    margin: 0;
-    color: #ddd;
+  font-weight: 200;
+  font-style: italic;
+  margin: 0;
+  color: #ddd;
 }
 div#results-area h5 span.highlight {
-    color: #FDED39;
-    font-weight: 600;
+  color: #fded39;
+  font-weight: 600;
 }
 div#results-area ul {
-    padding: 0;
-    list-style-type: none;
+  padding: 0;
+  list-style-type: none;
 }
 
 div#results-area ul li {
-    border: 1px solid #444;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 div#results-area ul li:hover {
-    border: 1px solid #FDED39;
+  border: 1px solid #fded39;
 }
 
 div#results-area ul li p {
-    margin: 0;
-    font-size: 14px;
+  margin: 0;
+  font-size: 14px;
 }
 
 div#results-area ul li p.truck-name {
-    color: #FDED39;
-    text-transform: uppercase;
-    margin: 0;
-    font-size: 16px;
-    margin-bottom: 5px;
+  color: #fded39;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 div#results-area ul li div.row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 div#results-area ul li div.row div.icons {
-    order: 1;
+  flex-shrink: 0;
+  width: 16px;
 }
+
 div#results-area ul li div.row div.content {
-    order: 2;
-    width: 230px;
-    margin-left: 10px;
+  margin-left: 8px;
 }
 
 .mapboxgl-popup-content {
-    background: black;
-    font-family: 'Titillium Web', sans-serif;
+  background: black;
+  font-family: "Titillium Web", sans-serif;
 }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-    border-top-color: black;
+  border-top-color: black;
 }
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-    border-bottom-color: black;
+  border-bottom-color: black;
 }
 .mapboxgl-popup-close-button {
-    color: white;
+  color: white;
 }
 .mapboxgl-popup-content .marker-title {
-    color: #FDED39;
-    text-transform: uppercase;
-    font-size: 14px;
+  color: #fded39;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 .mapboxgl-popup-content h4 {
-    margin: 0;
-    margin-top: 10px
+  margin: 0;
+  margin-top: 10px;
 }
