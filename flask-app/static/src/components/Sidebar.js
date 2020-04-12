@@ -1,72 +1,70 @@
-var React = require("react");
-var request = require("superagent");
-var Intro = require("./Intro");
-var Vendor = require("./Vendor");
+import React from "react";
+import request from "superagent";
+import Intro from "./Intro";
+import Vendor from "./Vendor";
 
-var Sidebar = React.createClass({
-  getInitialState() {
-    return {
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       results: [],
       query: "",
       firstLoad: true,
     };
-  },
+    this.onChange = this.onChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleHover = this.handleHover.bind(this);
+  }
+
   fetchResults() {
-    var results = [],
-      query = this.state.query;
-    request.get("/search?q=" + query).end(
-      function (err, res) {
-        if (err) {
-          alert("error in fetching response");
-        } else {
-          this.setState({
-            results: res.body,
-            firstLoad: false,
-          });
-          this.plotOnMap();
-        }
-      }.bind(this)
-    );
-  },
+    request.get("/search?q=" + this.state.query).end((err, res) => {
+      if (err) {
+        alert("error in fetching response");
+      } else {
+        this.setState({
+          results: res.body,
+          firstLoad: false,
+        });
+        this.plotOnMap();
+      }
+    });
+  }
+
   generateGeoJSON(markers) {
     return {
       type: "FeatureCollection",
-      features: markers.map(function (p) {
-        return {
-          type: "Feature",
-          properties: {
-            name: p.name,
-            hours: p.hours,
-            address: p.address,
-            "point-color": "253,237,57,1",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [
-              parseFloat(p.location.coordinates[0]),
-              parseFloat(p.location.coordinates[1]),
-            ],
-          },
-        };
-      }),
+      features: markers.map((p) => ({
+        type: "Feature",
+        properties: {
+          name: p.name,
+          hours: p.hours,
+          address: p.address,
+          "point-color": "253,237,57,1",
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            parseFloat(p.location.coordinates[0]),
+            parseFloat(p.location.coordinates[1]),
+          ],
+        },
+      })),
     };
-  },
+  }
 
   plotOnMap(vendor) {
-    var map = this.props.map;
-    var results = this.state.results;
-    var markers = [].concat.apply(
+    const map = this.props.map;
+    const results = this.state.results;
+    const markers = [].concat.apply(
       [],
       results.trucks.map((t) =>
-        t.branches.map(function (b) {
-          return {
-            location: b.location,
-            name: t.name,
-            schedule: b.schedule,
-            hours: b.hours,
-            address: b.address,
-          };
-        })
+        t.branches.map((b) => ({
+          location: b.location,
+          name: t.name,
+          schedule: b.schedule,
+          hours: b.hours,
+          address: b.address,
+        }))
       )
     );
     var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
@@ -133,19 +131,20 @@ var Sidebar = React.createClass({
           },
         });
     }
-  },
+  }
+
   handleSearch(e) {
     e.preventDefault();
     this.fetchResults();
-  },
+  }
 
   onChange(e) {
     this.setState({ query: e.target.value });
-  },
+  }
 
   handleHover(vendorName) {
     this.plotOnMap(vendorName);
-  },
+  }
 
   render() {
     if (this.state.firstLoad) {
@@ -155,7 +154,7 @@ var Sidebar = React.createClass({
             <form onSubmit={this.handleSearch}>
               <input
                 type="text"
-                value={query}
+                value={this.state.query}
                 onChange={this.onChange}
                 placeholder="Burgers, Tacos or Wraps?"
               />
@@ -167,11 +166,11 @@ var Sidebar = React.createClass({
       );
     }
 
-    var query = this.state.query;
-    var resultsCount = this.state.results.hits || 0;
-    var locationsCount = this.state.results.locations || 0;
-    var results = this.state.results.trucks || [];
-    var renderedResults = results.map((r, i) => (
+    const query = this.state.query;
+    const resultsCount = this.state.results.hits || 0;
+    const locationsCount = this.state.results.locations || 0;
+    const results = this.state.results.trucks || [];
+    const renderedResults = results.map((r, i) => (
       <Vendor key={i} data={r} handleHover={this.handleHover} />
     ));
 
@@ -200,7 +199,7 @@ var Sidebar = React.createClass({
         ) : null}
       </div>
     );
-  },
-});
+  }
+}
 
-module.exports = Sidebar;
+export default Sidebar;
