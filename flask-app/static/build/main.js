@@ -11179,6 +11179,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = Intro;
 	
 	var _react = __webpack_require__(1);
 	
@@ -11242,8 +11243,6 @@
 	    )
 	  );
 	}
-	
-	exports.default = Intro;
 
 /***/ }),
 /* 19 */
@@ -11308,17 +11307,39 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      var r = this.props.data;
+	      var _props$data = this.props.data,
+	          name = _props$data.name,
+	          branches = _props$data.branches,
+	          fooditems = _props$data.fooditems,
+	          drinks = _props$data.drinks;
+	
+	      var servesDrinks = _react2.default.createElement(
+	        "div",
+	        { className: "row" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "icons" },
+	          " ",
+	          _react2.default.createElement("i", { className: "ion-wineglass" }),
+	          " "
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "content" },
+	          "Serves Cold Drinks"
+	        )
+	      );
+	
 	      return _react2.default.createElement(
 	        "li",
 	        {
-	          onMouseEnter: this.props.handleHover.bind(null, r.name),
+	          onMouseEnter: this.props.handleHover.bind(null, name),
 	          onClick: this.toggleExpand
 	        },
 	        _react2.default.createElement(
 	          "p",
 	          { className: "truck-name" },
-	          r.name
+	          name
 	        ),
 	        _react2.default.createElement(
 	          "div",
@@ -11334,26 +11355,11 @@
 	            "div",
 	            { className: "content" },
 	            " ",
-	            r.branches.length,
+	            branches.length,
 	            " locations "
 	          )
 	        ),
-	        r.drinks ? _react2.default.createElement(
-	          "div",
-	          { className: "row" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "icons" },
-	            " ",
-	            _react2.default.createElement("i", { className: "ion-wineglass" }),
-	            " "
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "content" },
-	            "Serves Cold Drinks"
-	          )
-	        ) : null,
+	        drinks ? servesDrinks : null,
 	        _react2.default.createElement(
 	          "div",
 	          { className: "row" },
@@ -11369,7 +11375,7 @@
 	            "div",
 	            { className: "content" },
 	            "Serves ",
-	            this.formatFoodItems(r.fooditems)
+	            this.formatFoodItems(fooditems)
 	          )
 	        )
 	      );

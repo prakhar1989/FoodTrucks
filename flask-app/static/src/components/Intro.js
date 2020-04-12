@@ -1,6 +1,6 @@
 import React from "react";
 
-function Intro() {
+export default function Intro() {
   return (
     <div className="intro">
       <h3>About</h3>
@@ -34,5 +34,3 @@ function Intro() {
     </div>
   );
 }
-
-export default Intro;
