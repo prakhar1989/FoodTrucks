@@ -1,6 +1,5 @@
 import React from "react";
-
-var request = require("superagent");
+import request from "superagent";
 import Intro from "./Intro";
 import Vendor from "./Vendor";
 
@@ -34,42 +33,38 @@ class Sidebar extends React.Component {
   generateGeoJSON(markers) {
     return {
       type: "FeatureCollection",
-      features: markers.map(function (p) {
-        return {
-          type: "Feature",
-          properties: {
-            name: p.name,
-            hours: p.hours,
-            address: p.address,
-            "point-color": "253,237,57,1",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [
-              parseFloat(p.location.coordinates[0]),
-              parseFloat(p.location.coordinates[1]),
-            ],
-          },
-        };
-      }),
+      features: markers.map((p) => ({
+        type: "Feature",
+        properties: {
+          name: p.name,
+          hours: p.hours,
+          address: p.address,
+          "point-color": "253,237,57,1",
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            parseFloat(p.location.coordinates[0]),
+            parseFloat(p.location.coordinates[1]),
+          ],
+        },
+      })),
     };
   }
 
   plotOnMap(vendor) {
-    var map = this.props.map;
-    var results = this.state.results;
-    var markers = [].concat.apply(
+    const map = this.props.map;
+    const results = this.state.results;
+    const markers = [].concat.apply(
       [],
       results.trucks.map((t) =>
-        t.branches.map(function (b) {
-          return {
-            location: b.location,
-            name: t.name,
-            schedule: b.schedule,
-            hours: b.hours,
-            address: b.address,
-          };
-        })
+        t.branches.map((b) => ({
+          location: b.location,
+          name: t.name,
+          schedule: b.schedule,
+          hours: b.hours,
+          address: b.address,
+        }))
       )
     );
     var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
@@ -171,11 +166,11 @@ class Sidebar extends React.Component {
       );
     }
 
-    var query = this.state.query;
-    var resultsCount = this.state.results.hits || 0;
-    var locationsCount = this.state.results.locations || 0;
-    var results = this.state.results.trucks || [];
-    var renderedResults = results.map((r, i) => (
+    const query = this.state.query;
+    const resultsCount = this.state.results.hits || 0;
+    const locationsCount = this.state.results.locations || 0;
+    const results = this.state.results.trucks || [];
+    const renderedResults = results.map((r, i) => (
       <Vendor key={i} data={r} handleHover={this.handleHover} />
     ));
 
