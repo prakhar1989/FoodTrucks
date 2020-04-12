@@ -1,33 +1,36 @@
-var React = require("react");
-var request = require("superagent");
-var Intro = require("./Intro");
-var Vendor = require("./Vendor");
+import React from "react";
 
-var Sidebar = React.createClass({
-  getInitialState() {
-    return {
+var request = require("superagent");
+import Intro from "./Intro";
+import Vendor from "./Vendor";
+
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       results: [],
       query: "",
       firstLoad: true,
     };
-  },
+    this.onChange = this.onChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleHover = this.handleHover.bind(this);
+  }
+
   fetchResults() {
-    var results = [],
-      query = this.state.query;
-    request.get("/search?q=" + query).end(
-      function (err, res) {
-        if (err) {
-          alert("error in fetching response");
-        } else {
-          this.setState({
-            results: res.body,
-            firstLoad: false,
-          });
-          this.plotOnMap();
-        }
-      }.bind(this)
-    );
-  },
+    request.get("/search?q=" + this.state.query).end((err, res) => {
+      if (err) {
+        alert("error in fetching response");
+      } else {
+        this.setState({
+          results: res.body,
+          firstLoad: false,
+        });
+        this.plotOnMap();
+      }
+    });
+  }
+
   generateGeoJSON(markers) {
     return {
       type: "FeatureCollection",
@@ -50,7 +53,7 @@ var Sidebar = React.createClass({
         };
       }),
     };
-  },
+  }
 
   plotOnMap(vendor) {
     var map = this.props.map;
@@ -133,19 +136,20 @@ var Sidebar = React.createClass({
           },
         });
     }
-  },
+  }
+
   handleSearch(e) {
     e.preventDefault();
     this.fetchResults();
-  },
+  }
 
   onChange(e) {
     this.setState({ query: e.target.value });
-  },
+  }
 
   handleHover(vendorName) {
     this.plotOnMap(vendorName);
-  },
+  }
 
   render() {
     if (this.state.firstLoad) {
@@ -155,7 +159,7 @@ var Sidebar = React.createClass({
             <form onSubmit={this.handleSearch}>
               <input
                 type="text"
-                value={query}
+                value={this.state.query}
                 onChange={this.onChange}
                 placeholder="Burgers, Tacos or Wraps?"
               />
@@ -200,7 +204,7 @@ var Sidebar = React.createClass({
         ) : null}
       </div>
     );
-  },
-});
+  }
+}
 
-module.exports = Sidebar;
+export default Sidebar;

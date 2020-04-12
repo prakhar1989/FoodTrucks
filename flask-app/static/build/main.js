@@ -44,52 +44,62 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(8);
-	var Sidebar = __webpack_require__(17);
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(8);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _Sidebar = __webpack_require__(17);
+	
+	var _Sidebar2 = _interopRequireDefault(_Sidebar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// setting up mapbox
-	mapboxgl.accessToken = 'pk.eyJ1IjoicHJha2hhciIsImEiOiJjaWZlbzQ1M2I3Nmt2cnhrbnlxcTQyN3VkIn0.uOaUAUqN2VS7dC7XKS0KkQ';
+	mapboxgl.accessToken = "pk.eyJ1IjoicHJha2hhciIsImEiOiJjaWZlbzQ1M2I3Nmt2cnhrbnlxcTQyN3VkIn0.uOaUAUqN2VS7dC7XKS0KkQ";
 	
 	var map = new mapboxgl.Map({
-	    container: 'map',
-	    style: 'mapbox://styles/prakhar/cij2cpsn1004p8ykqqir34jm8',
-	    center: [-122.44, 37.77],
-	    zoom: 12
+	  container: "map",
+	  style: "mapbox://styles/prakhar/cij2cpsn1004p8ykqqir34jm8",
+	  center: [-122.44, 37.77],
+	  zoom: 12
 	});
 	
-	ReactDOM.render(React.createElement(Sidebar, { map: map }), document.getElementById("sidebar"));
+	_reactDom2.default.render(_react2.default.createElement(_Sidebar2.default, { map: map }), document.getElementById("sidebar"));
 	
 	function formatHTMLforMarker(props) {
-	    var name = props.name,
-	        hours = props.hours,
-	        address = props.address;
+	  var name = props.name,
+	      hours = props.hours,
+	      address = props.address;
 	
-	    var html = "<div class=\"marker-title\">" + name + "</div>" + "<h4>Operating Hours</h4>" + "<span>" + hours + "</span>" + "<h4>Address</h4>" + "<span>" + address + "</span>";
-	    return html;
-	};
+	  var html = '<div class="marker-title">' + name + "</div>" + "<h4>Operating Hours</h4>" + "<span>" + hours + "</span>" + "<h4>Address</h4>" + "<span>" + address + "</span>";
+	  return html;
+	}
 	
 	// setup popup display on the marker
-	map.on('click', function (e) {
-	    map.featuresAt(e.point, { layer: 'trucks', radius: 10, includeGeometry: true }, function (err, features) {
-	        if (err || !features.length) return;
+	map.on("click", function (e) {
+	  map.featuresAt(e.point, { layer: "trucks", radius: 10, includeGeometry: true }, function (err, features) {
+	    if (err || !features.length) return;
 	
-	        var feature = features[0];
+	    var feature = features[0];
 	
-	        new mapboxgl.Popup().setLngLat(feature.geometry.coordinates).setHTML(formatHTMLforMarker(feature.properties)).addTo(map);
-	    });
+	    new mapboxgl.Popup().setLngLat(feature.geometry.coordinates).setHTML(formatHTMLforMarker(feature.properties)).addTo(map);
+	  });
 	});
 	
-	map.on('click', function (e) {
-	    map.featuresAt(e.point, { layer: 'trucks-highlight', radius: 10, includeGeometry: true }, function (err, features) {
-	        if (err || !features.length) return;
+	map.on("click", function (e) {
+	  map.featuresAt(e.point, { layer: "trucks-highlight", radius: 10, includeGeometry: true }, function (err, features) {
+	    if (err || !features.length) return;
 	
-	        var feature = features[0];
+	    var feature = features[0];
 	
-	        new mapboxgl.Popup().setLngLat(feature.geometry.coordinates).setHTML(formatHTMLforMarker(feature.properties)).addTo(map);
-	    });
+	    new mapboxgl.Popup().setLngLat(feature.geometry.coordinates).setHTML(formatHTMLforMarker(feature.properties)).addTo(map);
+	  });
 	});
 
 /***/ }),
@@ -10881,237 +10891,497 @@
 
 	"use strict";
 	
-	var React = __webpack_require__(1);
-	var request = __webpack_require__(18);
-	var Intro = __webpack_require__(26);
-	var Vendor = __webpack_require__(27);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var Sidebar = React.createClass({
-	  displayName: "Sidebar",
-	  getInitialState: function getInitialState() {
-	    return {
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Intro = __webpack_require__(18);
+	
+	var _Intro2 = _interopRequireDefault(_Intro);
+	
+	var _Vendor = __webpack_require__(19);
+	
+	var _Vendor2 = _interopRequireDefault(_Vendor);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var request = __webpack_require__(20);
+	
+	var Sidebar = function (_React$Component) {
+	  _inherits(Sidebar, _React$Component);
+	
+	  function Sidebar(props) {
+	    _classCallCheck(this, Sidebar);
+	
+	    var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
+	
+	    _this.state = {
 	      results: [],
 	      query: "",
 	      firstLoad: true
 	    };
-	  },
-	  fetchResults: function fetchResults() {
-	    var results = [],
-	        query = this.state.query;
-	    request.get("/search?q=" + query).end(function (err, res) {
-	      if (err) {
-	        alert("error in fetching response");
-	      } else {
-	        this.setState({
-	          results: res.body,
-	          firstLoad: false
-	        });
-	        this.plotOnMap();
-	      }
-	    }.bind(this));
-	  },
-	  generateGeoJSON: function generateGeoJSON(markers) {
-	    return {
-	      type: "FeatureCollection",
-	      features: markers.map(function (p) {
-	        return {
-	          type: "Feature",
-	          properties: {
-	            name: p.name,
-	            hours: p.hours,
-	            address: p.address,
-	            "point-color": "253,237,57,1"
-	          },
-	          geometry: {
-	            type: "Point",
-	            coordinates: [parseFloat(p.location.coordinates[0]), parseFloat(p.location.coordinates[1])]
-	          }
-	        };
-	      })
-	    };
-	  },
-	  plotOnMap: function plotOnMap(vendor) {
-	    var map = this.props.map;
-	    var results = this.state.results;
-	    var markers = [].concat.apply([], results.trucks.map(function (t) {
-	      return t.branches.map(function (b) {
-	        return {
-	          location: b.location,
-	          name: t.name,
-	          schedule: b.schedule,
-	          hours: b.hours,
-	          address: b.address
-	        };
-	      });
-	    }));
-	    var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
+	    _this.onChange = _this.onChange.bind(_this);
+	    _this.handleSearch = _this.handleSearch.bind(_this);
+	    _this.handleHover = _this.handleHover.bind(_this);
+	    return _this;
+	  }
 	
-	    if (vendor) {
-	      highlightMarkers = markers.filter(function (m) {
-	        return m.name.toLowerCase() === vendor.toLowerCase();
-	      });
-	      usualMarkers = markers.filter(function (m) {
-	        return m.name.toLowerCase() !== vendor.toLowerCase();
-	      });
-	    } else {
-	      usualMarkers = markers;
-	    }
+	  _createClass(Sidebar, [{
+	    key: "fetchResults",
+	    value: function fetchResults() {
+	      var _this2 = this;
 	
-	    usualgeoJSON = this.generateGeoJSON(usualMarkers);
-	    if (highlightMarkers) {
-	      highlightgeoJSON = this.generateGeoJSON(highlightMarkers);
-	    }
-	    // clearing layers
-	    if (map.getLayer("trucks")) {
-	      map.removeLayer("trucks");
-	    }
-	    if (map.getSource("trucks")) {
-	      map.removeSource("trucks");
-	    }
-	    if (map.getLayer("trucks-highlight")) {
-	      map.removeLayer("trucks-highlight");
-	    }
-	    if (map.getSource("trucks-highlight")) {
-	      map.removeSource("trucks-highlight");
-	    }
-	
-	    map.addSource("trucks", {
-	      type: "geojson",
-	      data: usualgeoJSON
-	    }).addLayer({
-	      id: "trucks",
-	      type: "circle",
-	      interactive: true,
-	      source: "trucks",
-	      paint: {
-	        "circle-radius": 8,
-	        "circle-color": "rgba(253,237,57,1)"
-	      }
-	    });
-	
-	    if (highlightMarkers) {
-	      map.addSource("trucks-highlight", {
-	        type: "geojson",
-	        data: highlightgeoJSON
-	      }).addLayer({
-	        id: "trucks-highlight",
-	        type: "circle",
-	        interactive: true,
-	        source: "trucks-highlight",
-	        paint: {
-	          "circle-radius": 8,
-	          "circle-color": "rgba(164,65,99,1)"
+	      request.get("/search?q=" + this.state.query).end(function (err, res) {
+	        if (err) {
+	          alert("error in fetching response");
+	        } else {
+	          _this2.setState({
+	            results: res.body,
+	            firstLoad: false
+	          });
+	          _this2.plotOnMap();
 	        }
 	      });
 	    }
-	  },
-	  handleSearch: function handleSearch(e) {
-	    e.preventDefault();
-	    this.fetchResults();
-	  },
-	  onChange: function onChange(e) {
-	    this.setState({ query: e.target.value });
-	  },
-	  handleHover: function handleHover(vendorName) {
-	    this.plotOnMap(vendorName);
-	  },
-	  render: function render() {
-	    var _this = this;
+	  }, {
+	    key: "generateGeoJSON",
+	    value: function generateGeoJSON(markers) {
+	      return {
+	        type: "FeatureCollection",
+	        features: markers.map(function (p) {
+	          return {
+	            type: "Feature",
+	            properties: {
+	              name: p.name,
+	              hours: p.hours,
+	              address: p.address,
+	              "point-color": "253,237,57,1"
+	            },
+	            geometry: {
+	              type: "Point",
+	              coordinates: [parseFloat(p.location.coordinates[0]), parseFloat(p.location.coordinates[1])]
+	            }
+	          };
+	        })
+	      };
+	    }
+	  }, {
+	    key: "plotOnMap",
+	    value: function plotOnMap(vendor) {
+	      var map = this.props.map;
+	      var results = this.state.results;
+	      var markers = [].concat.apply([], results.trucks.map(function (t) {
+	        return t.branches.map(function (b) {
+	          return {
+	            location: b.location,
+	            name: t.name,
+	            schedule: b.schedule,
+	            hours: b.hours,
+	            address: b.address
+	          };
+	        });
+	      }));
+	      var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
 	
-	    if (this.state.firstLoad) {
-	      return React.createElement(
+	      if (vendor) {
+	        highlightMarkers = markers.filter(function (m) {
+	          return m.name.toLowerCase() === vendor.toLowerCase();
+	        });
+	        usualMarkers = markers.filter(function (m) {
+	          return m.name.toLowerCase() !== vendor.toLowerCase();
+	        });
+	      } else {
+	        usualMarkers = markers;
+	      }
+	
+	      usualgeoJSON = this.generateGeoJSON(usualMarkers);
+	      if (highlightMarkers) {
+	        highlightgeoJSON = this.generateGeoJSON(highlightMarkers);
+	      }
+	      // clearing layers
+	      if (map.getLayer("trucks")) {
+	        map.removeLayer("trucks");
+	      }
+	      if (map.getSource("trucks")) {
+	        map.removeSource("trucks");
+	      }
+	      if (map.getLayer("trucks-highlight")) {
+	        map.removeLayer("trucks-highlight");
+	      }
+	      if (map.getSource("trucks-highlight")) {
+	        map.removeSource("trucks-highlight");
+	      }
+	
+	      map.addSource("trucks", {
+	        type: "geojson",
+	        data: usualgeoJSON
+	      }).addLayer({
+	        id: "trucks",
+	        type: "circle",
+	        interactive: true,
+	        source: "trucks",
+	        paint: {
+	          "circle-radius": 8,
+	          "circle-color": "rgba(253,237,57,1)"
+	        }
+	      });
+	
+	      if (highlightMarkers) {
+	        map.addSource("trucks-highlight", {
+	          type: "geojson",
+	          data: highlightgeoJSON
+	        }).addLayer({
+	          id: "trucks-highlight",
+	          type: "circle",
+	          interactive: true,
+	          source: "trucks-highlight",
+	          paint: {
+	            "circle-radius": 8,
+	            "circle-color": "rgba(164,65,99,1)"
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: "handleSearch",
+	    value: function handleSearch(e) {
+	      e.preventDefault();
+	      this.fetchResults();
+	    }
+	  }, {
+	    key: "onChange",
+	    value: function onChange(e) {
+	      this.setState({ query: e.target.value });
+	    }
+	  }, {
+	    key: "handleHover",
+	    value: function handleHover(vendorName) {
+	      this.plotOnMap(vendorName);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this3 = this;
+	
+	      if (this.state.firstLoad) {
+	        return _react2.default.createElement(
+	          "div",
+	          null,
+	          _react2.default.createElement(
+	            "div",
+	            { id: "search-area" },
+	            _react2.default.createElement(
+	              "form",
+	              { onSubmit: this.handleSearch },
+	              _react2.default.createElement("input", {
+	                type: "text",
+	                value: this.state.query,
+	                onChange: this.onChange,
+	                placeholder: "Burgers, Tacos or Wraps?"
+	              }),
+	              _react2.default.createElement(
+	                "button",
+	                null,
+	                "Search!"
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(_Intro2.default, null)
+	        );
+	      }
+	
+	      var query = this.state.query;
+	      var resultsCount = this.state.results.hits || 0;
+	      var locationsCount = this.state.results.locations || 0;
+	      var results = this.state.results.trucks || [];
+	      var renderedResults = results.map(function (r, i) {
+	        return _react2.default.createElement(_Vendor2.default, { key: i, data: r, handleHover: _this3.handleHover });
+	      });
+	
+	      return _react2.default.createElement(
 	        "div",
 	        null,
-	        React.createElement(
+	        _react2.default.createElement(
 	          "div",
 	          { id: "search-area" },
-	          React.createElement(
+	          _react2.default.createElement(
 	            "form",
 	            { onSubmit: this.handleSearch },
-	            React.createElement("input", {
+	            _react2.default.createElement("input", {
 	              type: "text",
 	              value: query,
 	              onChange: this.onChange,
 	              placeholder: "Burgers, Tacos or Wraps?"
 	            }),
-	            React.createElement(
+	            _react2.default.createElement(
 	              "button",
 	              null,
 	              "Search!"
 	            )
 	          )
 	        ),
-	        React.createElement(Intro, null)
+	        resultsCount > 0 ? _react2.default.createElement(
+	          "div",
+	          { id: "results-area" },
+	          _react2.default.createElement(
+	            "h5",
+	            null,
+	            "Found ",
+	            _react2.default.createElement(
+	              "span",
+	              { className: "highlight" },
+	              resultsCount
+	            ),
+	            " vendors in",
+	            " ",
+	            _react2.default.createElement(
+	              "span",
+	              { className: "highlight" },
+	              locationsCount
+	            ),
+	            " different locations"
+	          ),
+	          _react2.default.createElement(
+	            "ul",
+	            null,
+	            " ",
+	            renderedResults,
+	            " "
+	          )
+	        ) : null
 	      );
 	    }
+	  }]);
 	
-	    var query = this.state.query;
-	    var resultsCount = this.state.results.hits || 0;
-	    var locationsCount = this.state.results.locations || 0;
-	    var results = this.state.results.trucks || [];
-	    var renderedResults = results.map(function (r, i) {
-	      return React.createElement(Vendor, { key: i, data: r, handleHover: _this.handleHover });
-	    });
+	  return Sidebar;
+	}(_react2.default.Component);
 	
-	    return React.createElement(
-	      "div",
-	      null,
-	      React.createElement(
-	        "div",
-	        { id: "search-area" },
-	        React.createElement(
-	          "form",
-	          { onSubmit: this.handleSearch },
-	          React.createElement("input", {
-	            type: "text",
-	            value: query,
-	            onChange: this.onChange,
-	            placeholder: "Burgers, Tacos or Wraps?"
-	          }),
-	          React.createElement(
-	            "button",
-	            null,
-	            "Search!"
-	          )
-	        )
-	      ),
-	      resultsCount > 0 ? React.createElement(
-	        "div",
-	        { id: "results-area" },
-	        React.createElement(
-	          "h5",
-	          null,
-	          "Found ",
-	          React.createElement(
-	            "span",
-	            { className: "highlight" },
-	            resultsCount
-	          ),
-	          " vendors in",
-	          " ",
-	          React.createElement(
-	            "span",
-	            { className: "highlight" },
-	            locationsCount
-	          ),
-	          " different locations"
-	        ),
-	        React.createElement(
-	          "ul",
-	          null,
-	          " ",
-	          renderedResults,
-	          " "
-	        )
-	      ) : null
-	    );
-	  }
-	});
-	
-	module.exports = Sidebar;
+	exports.default = Sidebar;
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function Intro() {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "intro" },
+	    _react2.default.createElement(
+	      "h3",
+	      null,
+	      "About"
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "This is a fun application built to accompany the",
+	      " ",
+	      _react2.default.createElement(
+	        "a",
+	        { href: "http://prakhar.me/docker-curriculum" },
+	        "docker curriculum"
+	      ),
+	      " - a comprehensive tutorial on getting started with Docker targeted especially at beginners."
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "The app is built with Flask on the backend and Elasticsearch is the engine powering the search."
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "The frontend is hand-crafted with React and the beautiful maps are courtesy of Mapbox."
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "If you find the design a bit ostentatious, blame",
+	      " ",
+	      _react2.default.createElement(
+	        "a",
+	        { href: "http://genius.com/Justin-bieber-baby-lyrics" },
+	        "Genius"
+	      ),
+	      " for giving me the idea of using this color scheme. If you love it, I smugly take all the credit. \u2282(\u2580\xAF\u2580\u2282)"
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Lastly, the data for the food trucks is made available in public domain by",
+	      " ",
+	      _react2.default.createElement(
+	        "a",
+	        { href: "https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat" },
+	        "SF Data"
+	      )
+	    )
+	  );
+	}
+	
+	exports.default = Intro;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Vendor = function (_React$Component) {
+	  _inherits(Vendor, _React$Component);
+	
+	  function Vendor(props) {
+	    _classCallCheck(this, Vendor);
+	
+	    var _this = _possibleConstructorReturn(this, (Vendor.__proto__ || Object.getPrototypeOf(Vendor)).call(this, props));
+	
+	    _this.state = {
+	      isExpanded: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Vendor, [{
+	    key: "formatFoodItems",
+	    value: function formatFoodItems(items) {
+	      if (this.state.isExpanded) {
+	        return items.join(", ");
+	      }
+	      var s = items.join(", ").substr(0, 80);
+	      if (s.length > 70) {
+	        var indexOfLastSpace = s.split("").reverse().join("").indexOf(",") + 1;
+	        return s.substr(0, 80 - indexOfLastSpace) + " & more...";
+	      } else {
+	        return s;
+	      }
+	    }
+	  }, {
+	    key: "toggleExpand",
+	    value: function toggleExpand() {
+	      this.setState({
+	        isExpanded: !this.state.isExpanded
+	      });
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var r = this.props.data;
+	      return _react2.default.createElement(
+	        "li",
+	        {
+	          onMouseEnter: this.props.handleHover.bind(null, r.name),
+	          onClick: this.toggleExpand
+	        },
+	        _react2.default.createElement(
+	          "p",
+	          { className: "truck-name" },
+	          r.name
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "icons" },
+	            " ",
+	            _react2.default.createElement("i", { className: "ion-android-pin" }),
+	            " "
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "content" },
+	            " ",
+	            r.branches.length,
+	            " locations "
+	          )
+	        ),
+	        r.drinks ? _react2.default.createElement(
+	          "div",
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "icons" },
+	            " ",
+	            _react2.default.createElement("i", { className: "ion-wineglass" }),
+	            " "
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "content" },
+	            "Serves Cold Drinks"
+	          )
+	        ) : null,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "icons" },
+	            " ",
+	            _react2.default.createElement("i", { className: "ion-fork" }),
+	            " ",
+	            _react2.default.createElement("i", { className: "ion-spoon" })
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "content" },
+	            "Serves ",
+	            this.formatFoodItems(r.fooditems)
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Vendor;
+	}(_react2.default.Component);
+	
+	exports.default = Vendor;
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11147,17 +11417,17 @@
 	  root = self;
 	}
 	
-	var Emitter = __webpack_require__(19);
+	var Emitter = __webpack_require__(21);
 	
-	var safeStringify = __webpack_require__(20);
+	var safeStringify = __webpack_require__(22);
 	
-	var RequestBase = __webpack_require__(21);
+	var RequestBase = __webpack_require__(23);
 	
-	var isObject = __webpack_require__(22);
+	var isObject = __webpack_require__(24);
 	
-	var ResponseBase = __webpack_require__(23);
+	var ResponseBase = __webpack_require__(25);
 	
-	var Agent = __webpack_require__(25);
+	var Agent = __webpack_require__(27);
 	/**
 	 * Noop.
 	 */
@@ -12126,7 +12396,7 @@
 	};
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12302,7 +12572,7 @@
 	};
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -12474,7 +12744,7 @@
 	}
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12496,7 +12766,7 @@
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(22);
+	var isObject = __webpack_require__(24);
 	/**
 	 * Expose `RequestBase`.
 	 */
@@ -13220,7 +13490,7 @@
 	};
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -13253,7 +13523,7 @@
 	module.exports = isObject;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13262,7 +13532,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(24);
+	var utils = __webpack_require__(26);
 	/**
 	 * Expose `ResponseBase`.
 	 */
@@ -13384,7 +13654,7 @@
 	};
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -13457,7 +13727,7 @@
 	};
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -13509,177 +13779,6 @@
 	};
 	
 	module.exports = Agent;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	
-	var Intro = React.createClass({
-	  displayName: "Intro",
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      { className: "intro" },
-	      React.createElement(
-	        "h3",
-	        null,
-	        "About"
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "This is a fun application built to accompany the",
-	        " ",
-	        React.createElement(
-	          "a",
-	          { href: "http://prakhar.me/docker-curriculum" },
-	          "docker curriculum"
-	        ),
-	        " - a comprehensive tutorial on getting started with Docker targeted especially at beginners."
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "The app is built with Flask on the backend and Elasticsearch is the engine powering the search."
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "The frontend is hand-crafted with React and the beautiful maps are courtesy of Mapbox."
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "If you find the design a bit ostentatious, blame",
-	        " ",
-	        React.createElement(
-	          "a",
-	          { href: "http://genius.com/Justin-bieber-baby-lyrics" },
-	          "Genius"
-	        ),
-	        " for giving me the idea of using this color scheme. If you love it, I smugly take all the credit. \u2282(\u2580\xAF\u2580\u2282)"
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "Lastly, the data for the food trucks is made available in public domain by",
-	        " ",
-	        React.createElement(
-	          "a",
-	          { href: "https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat" },
-	          "SF Data"
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Intro;
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-	
-	var Vendor = React.createClass({
-	  displayName: "Vendor",
-	  getInitialState: function getInitialState() {
-	    return { isExpanded: false };
-	  },
-	  formatFoodItems: function formatFoodItems(items) {
-	    if (this.state.isExpanded) {
-	      return items.join(", ");
-	    }
-	    var s = items.join(", ").substr(0, 80);
-	    if (s.length > 70) {
-	      var indexOfLastSpace = s.split("").reverse().join("").indexOf(",") + 1;
-	      return s.substr(0, 80 - indexOfLastSpace) + " & more...";
-	    } else {
-	      return s;
-	    }
-	  },
-	  toggleExpand: function toggleExpand() {
-	    this.setState({
-	      isExpanded: !this.state.isExpanded
-	    });
-	  },
-	  render: function render() {
-	    var r = this.props.data;
-	    return React.createElement(
-	      "li",
-	      {
-	        onMouseEnter: this.props.handleHover.bind(null, r.name),
-	        onClick: this.toggleExpand
-	      },
-	      React.createElement(
-	        "p",
-	        { className: "truck-name" },
-	        r.name
-	      ),
-	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(
-	          "div",
-	          { className: "icons" },
-	          " ",
-	          React.createElement("i", { className: "ion-android-pin" }),
-	          " "
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "content" },
-	          " ",
-	          r.branches.length,
-	          " locations "
-	        )
-	      ),
-	      r.drinks ? React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(
-	          "div",
-	          { className: "icons" },
-	          " ",
-	          React.createElement("i", { className: "ion-wineglass" }),
-	          " "
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "content" },
-	          "Serves Cold Drinks"
-	        )
-	      ) : null,
-	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(
-	          "div",
-	          { className: "icons" },
-	          " ",
-	          React.createElement("i", { className: "ion-fork" }),
-	          " ",
-	          React.createElement("i", { className: "ion-spoon" })
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "content" },
-	          "Serves ",
-	          this.formatFoodItems(r.fooditems)
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Vendor;
 
 /***/ })
 /******/ ]);

@@ -1,9 +1,13 @@
-var React = require("react");
+import React from "react";
 
-var Vendor = React.createClass({
-  getInitialState() {
-    return { isExpanded: false };
-  },
+class Vendor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isExpanded: false,
+    };
+  }
+
   formatFoodItems(items) {
     if (this.state.isExpanded) {
       return items.join(", ");
@@ -15,12 +19,14 @@ var Vendor = React.createClass({
     } else {
       return s;
     }
-  },
+  }
+
   toggleExpand() {
     this.setState({
       isExpanded: !this.state.isExpanded,
     });
-  },
+  }
+
   render() {
     var r = this.props.data;
     return (
@@ -56,7 +62,7 @@ var Vendor = React.createClass({
         </div>
       </li>
     );
-  },
-});
+  }
+}
 
-module.exports = Vendor;
+export default Vendor;
