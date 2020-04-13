@@ -1,0 +1,9 @@
+version: 1
+task_definition:
+  services:
+    web:
+      cpu_shares: 100
+      mem_limit: 524288000
+    es:
+      cpu_shares: 100
+      mem_limit: 524288000
