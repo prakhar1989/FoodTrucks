@@ -8,6 +8,12 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: foodtrucks
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: es
   web:
     image: prakhar1989/foodtrucks-web
     cpu_shares: 100
@@ -16,3 +22,9 @@ services:
       - "80:5000"
     links:
       - es
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: foodtrucks
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: web
