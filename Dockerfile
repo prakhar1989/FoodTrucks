@@ -1,5 +1,5 @@
 # start from base
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 LABEL maintainer="Prakhar Srivastav <prakhar@prakhar.me>"
 
