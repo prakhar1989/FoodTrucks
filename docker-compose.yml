@@ -11,7 +11,7 @@ services:
       - esdata1:/usr/share/elasticsearch/data
   web:
     image: prakhar1989/foodtrucks-web
-    command: python app.py
+    command: python3 app.py
     depends_on:
       - es
     ports:
