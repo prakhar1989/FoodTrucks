@@ -44,8 +44,8 @@ class Sidebar extends React.Component {
         geometry: {
           type: "Point",
           coordinates: [
-            parseFloat(p.location.coordinates[0]),
-            parseFloat(p.location.coordinates[1]),
+            parseFloat(p.location.longitude),
+            parseFloat(p.location.latitude),
           ],
         },
       })),
@@ -55,17 +55,14 @@ class Sidebar extends React.Component {
   plotOnMap(vendor) {
     const map = this.props.map;
     const results = this.state.results;
-    const markers = [].concat.apply(
-      [],
-      results.trucks.map((t) =>
-        t.branches.map((b) => ({
-          location: b.location,
-          name: t.name,
-          schedule: b.schedule,
-          hours: b.hours,
-          address: b.address,
-        }))
-      )
+    const markers = results.trucks.flatMap((t) =>
+      t.branches.map((b) => ({
+        location: b.location,
+        name: t.name,
+        schedule: b.schedule,
+        hours: b.hours,
+        address: b.address,
+      }))
     );
     var highlightMarkers, usualMarkers, usualgeoJSON, highlightgeoJSON;
 

@@ -4,3 +4,4 @@ venv
 .DS_Store
 elasticsearch
 *.pem
+build/
