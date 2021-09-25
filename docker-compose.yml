@@ -1,7 +1,7 @@
 version: "3"
 services:
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    image: elasticsearch:7.14.1
     container_name: es
     environment:
       - discovery.type=single-node
@@ -19,5 +19,5 @@ services:
     volumes:
       - ./flask-app:/opt/flask-app
 volumes:
-    esdata1:
-      driver: local
+  esdata1:
+    driver: local
