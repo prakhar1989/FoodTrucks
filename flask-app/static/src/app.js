@@ -34,35 +34,17 @@ function formatHTMLforMarker(props) {
 
 // setup popup display on the marker
 map.on("click", function (e) {
-  map.featuresAt(
-    e.point,
-    { layer: "trucks", radius: 10, includeGeometry: true },
-    function (err, features) {
-      if (err || !features.length) return;
-
-      var feature = features[0];
-
-      new mapboxgl.Popup()
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(formatHTMLforMarker(feature.properties))
-        .addTo(map);
-    }
+  var features = map.queryRenderedFeatures(
+    e.point, 
+    { layers: ['trucks', 'trucks-highlight'], radius: 10, includeGeometry: true }
   );
-});
 
-map.on("click", function (e) {
-  map.featuresAt(
-    e.point,
-    { layer: "trucks-highlight", radius: 10, includeGeometry: true },
-    function (err, features) {
-      if (err || !features.length) return;
+  if (!features.length) return;
 
-      var feature = features[0];
+  var feature = features[0];
 
-      new mapboxgl.Popup()
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(formatHTMLforMarker(feature.properties))
-        .addTo(map);
-    }
-  );
+  new mapboxgl.Popup()
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML(formatHTMLforMarker(feature.properties))
+    .addTo(map);
 });
