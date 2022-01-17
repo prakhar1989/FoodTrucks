@@ -44,8 +44,8 @@ class Sidebar extends React.Component {
         geometry: {
           type: "Point",
           coordinates: [
-            parseFloat(p.location.coordinates[0]),
-            parseFloat(p.location.coordinates[1]),
+            parseFloat(p.location.longitude),
+            parseFloat(p.location.latitude),
           ],
         },
       })),
