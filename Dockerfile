@@ -16,6 +16,7 @@ WORKDIR /opt/flask-app
 # fetch app specific deps
 RUN npm install
 RUN npm run build
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 # expose port
